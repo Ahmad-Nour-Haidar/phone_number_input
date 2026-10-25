@@ -99,7 +99,7 @@ InternationalPhoneNumberInput({
 
 ```dart
 SelectorConfig({
-    this.selectorType = PhoneInputSelectorType.DROPDOWN,
+    this.selectorType = PhoneInputSelectorType.dropdown,
     this.showFlags = true,
     this.useEmoji = false,
     this.backgroundColor,
@@ -181,7 +181,7 @@ class _MyPhoneFormState extends State<MyPhoneForm> {
                 print(value);
               },
               selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                selectorType: PhoneInputSelectorType.bottomSheet,
                 backgroundColor: Colors.black87,
               ),
               ignoreBlank: false,
@@ -234,7 +234,7 @@ class _MyPhoneFormState extends State<MyPhoneForm> {
 InternationalPhoneNumberInput(
   onInputChanged: (PhoneNumber number) {},
   selectorConfig: SelectorConfig(
-    selectorType: PhoneInputSelectorType.DROPDOWN,
+    selectorType: PhoneInputSelectorType.dropdown,
     backgroundColor: Theme.of(context).backgroundColor,
     setSelectorButtonAsPrefixIcon: true,
     leadingPadding: 20,
@@ -273,7 +273,7 @@ InternationalPhoneNumberInput(
   onInputChanged: (PhoneNumber number) {},
   countries: ['US', 'CA', 'MX'],
   selectorConfig: SelectorConfig(
-    selectorType: PhoneInputSelectorType.DIALOG,
+    selectorType: PhoneInputSelectorType.dialog,
   ),
 )
 
@@ -282,7 +282,7 @@ InternationalPhoneNumberInput(
   onInputChanged: (PhoneNumber number) {},
   countries: ['GB', 'FR', 'DE', 'IT', 'ES', 'NL'],
   selectorConfig: SelectorConfig(
-    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+    selectorType: PhoneInputSelectorType.bottomSheet,
     countryComparator: (Country a, Country b) => a.name!.compareTo(b.name!),
   ),
 )
@@ -474,7 +474,7 @@ SelectorConfig(
 
 ```dart
 SelectorConfig(
-  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+  selectorType: PhoneInputSelectorType.bottomSheet,
   useBottomSheetSafeArea: true,
   countrySelectorScrollControlled: true,
 )
@@ -520,15 +520,13 @@ InternationalPhoneNumberInput(
 - Test with TalkBack (Android) and VoiceOver (iOS)
 
 ### Testing
-Widget Key parameters and Helper classes are now available for integration testing check out this example 🎯 [Integration Testing Example](https://gist.github.com/natintosh/b7b40d75240a65fdb63942a4b36753e5)
+`PhoneInputKeys` holds the keys of the widgets inside the input, for widget and integration tests:
 
-### Testing Helper Keys
 ```dart
-// Use these keys for integration testing
-find.byValueKey(TestHelper.TextInputKeyValue)          // Text input field
-find.byValueKey(TestHelper.DropdownButtonKeyValue)     // Country selector
-find.byValueKey(TestHelper.CountrySearchInputKeyValue) // Search field in popup
-find.byValueKey(TestHelper.countryItemKeyValue('US'))  // Specific country item
+find.byKey(PhoneInputKeys.textField)          // Text input field
+find.byKey(PhoneInputKeys.selectorButton)     // Country selector
+find.byKey(PhoneInputKeys.searchField)        // Search field in the bottom sheet or dialog
+find.byKey(PhoneInputKeys.countryItem('US'))  // Specific country item
 ```
 
 

@@ -1,49 +1,50 @@
 import 'package:flutter/services.dart';
 
+/// A [TextInputFormatter] that converts Arabic-Indic digits (`٠١٢٣٤٥٦٧٨٩`)
+/// and Extended Arabic-Indic / Persian digits (`۰۱۲۳۴۵۶۷۸۹`) to ASCII digits
+/// (`0123456789`) as the user types.
+///
+/// Each converted digit is a single UTF-16 code unit, so the text length never
+/// changes and the selection and composing ranges are kept as they are.
 final class ArabicToEnglishDigitsFormatter extends TextInputFormatter {
+  /// Creates a formatter that converts Arabic and Persian digits.
   const ArabicToEnglishDigitsFormatter();
 
-  static const Map<String, String> _ar2en = {
-    '٠': '0', // Arabic-Indic
-    '١': '1',
-    '٢': '2',
-    '٣': '3',
-    '٤': '4',
-    '٥': '5',
-    '٦': '6',
-    '٧': '7',
-    '٨': '8',
-    '٩': '9',
-    '۰': '0', // Eastern Arabic (Persian)
-    '۱': '1',
-    '۲': '2',
-    '۳': '3',
-    '۴': '4',
-    '۵': '5',
-    '۶': '6',
-    '۷': '7',
-    '۸': '8',
-    '۹': '9',
-  };
+  static const int _asciiZero = 0x0030;
+  static const int _arabicIndicZero = 0x0660;
+  static const int _extendedArabicIndicZero = 0x06F0;
+
+  /// Returns [input] with every Arabic-Indic and Extended Arabic-Indic digit
+  /// replaced by its ASCII equivalent.
+  ///
+  /// Returns [input] itself when there is nothing to convert.
+  static String convert(String input) {
+    List<int>? codeUnits;
+    for (var i = 0; i < input.length; i++) {
+      final codeUnit = input.codeUnitAt(i);
+      final int zero;
+      if (codeUnit >= _arabicIndicZero && codeUnit <= _arabicIndicZero + 9) {
+        zero = _arabicIndicZero;
+      } else if (codeUnit >= _extendedArabicIndicZero &&
+          codeUnit <= _extendedArabicIndicZero + 9) {
+        zero = _extendedArabicIndicZero;
+      } else {
+        continue;
+      }
+      (codeUnits ??= List.of(input.codeUnits))[i] =
+          _asciiZero + codeUnit - zero;
+    }
+    return codeUnits == null ? input : String.fromCharCodes(codeUnits);
+  }
 
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    // Replace Arabic digits with English equivalents
-
-    final original = newValue.text;
-    final length = original.length;
-    final buffer = StringBuffer();
-    for (int i = 0; i < length; i++) {
-      final c = original[i];
-      buffer.write(_ar2en[c] ?? c);
-    }
-
-    return TextEditingValue(
-      text: buffer.toString(),
-      selection: TextSelection.collapsed(offset: newValue.selection.baseOffset),
-    );
+    final text = convert(newValue.text);
+    return identical(text, newValue.text)
+        ? newValue
+        : newValue.copyWith(text: text);
   }
 }
