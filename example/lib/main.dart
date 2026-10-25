@@ -17,7 +17,9 @@ final class _ExampleAppState extends State<ExampleApp> {
   Widget build(BuildContext context) {
     final locale = _arabic ? const Locale('ar') : const Locale('en');
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'phone_number_input',
+      locale: locale,
       theme: ThemeData(colorSchemeSeed: Colors.teal),
       builder: (context, child) => Directionality(
         textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
@@ -52,7 +54,7 @@ final class PhoneForm extends StatefulWidget {
 final class _PhoneFormState extends State<PhoneForm> {
   final _formKey = GlobalKey<FormState>();
 
-  PhoneNumber _number = PhoneNumber(isoCode: 'SY');
+  PhoneNumber _number = PhoneNumber(isoCode: 'PS');
   PhoneNumber? _saved;
 
   void _submit() {
@@ -63,56 +65,62 @@ final class _PhoneFormState extends State<PhoneForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          InternationalPhoneNumberInput(
-            // Feeding the reported number back is safe: the field keeps the
-            // text and cursor the user typed.
-            initialValue: _number,
-            onChanged: (number) => setState(() => _number = number),
-            onSaved: (number) => setState(() => _saved = number),
-            locale: widget.locale,
-            favoriteCountries: const ['SY', 'LB', 'JO', 'SA'],
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              helperText: 'Try ٠٩٤٤١٢٣٤٥٦, or paste +966 50 123 4567',
-            ),
-            selectorConfig: const SelectorConfig(
-              type: PhoneInputSelectorType.bottomSheet,
-              useSafeArea: true,
-            ),
-          ),
-          const SizedBox(height: 24),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+    return Center(
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: .min,
             children: [
-              FilledButton(onPressed: _submit, child: const Text('Save')),
-              OutlinedButton(
-                onPressed: () => setState(
-                  () => _number = PhoneNumber.tryParse('+966501234567')!,
+              InternationalPhoneNumberInput(
+                key: ValueKey(widget.locale),
+                // Feeding the reported number back is safe: the field keeps the
+                // text and cursor the user typed.
+                initialValue: _number,
+                onChanged: (number) => setState(() => _number = number),
+                onSaved: (number) => setState(() => _saved = number),
+                locale: widget.locale,
+                favoriteCountries: const ['PS', 'SA'],
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  helperText: 'Try paste +966 50 123 4567',
                 ),
-                child: const Text('Fill a Saudi number'),
+                selectorConfig: const SelectorConfig(
+                  type: .dropdown,
+                  useSafeArea: true,
+                ),
               ),
-              OutlinedButton(
-                onPressed: () =>
-                    setState(() => _number = PhoneNumber(isoCode: 'SY')),
-                child: const Text('Reset'),
+              const SizedBox(height: 24),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  FilledButton(onPressed: _submit, child: const Text('Save')),
+                  OutlinedButton(
+                    onPressed: () => setState(
+                      () => _number = PhoneNumber.tryParse('+966501234567')!,
+                    ),
+                    child: const Text('Fill a Saudi number'),
+                  ),
+                  OutlinedButton(
+                    onPressed: () =>
+                        setState(() => _number = PhoneNumber(isoCode: 'PS')),
+                    child: const Text('Reset'),
+                  ),
+                ],
               ),
+              const SizedBox(height: 24),
+              _Row('Country', '${_number.isoCode} (${_number.dialCode})'),
+              _Row('Digits', _number.digits),
+              _Row('E.164', _number.e164 ?? '—'),
+              _Row('International', _number.format()),
+              _Row('Type', _number.type.name),
+              _Row('Saved', _saved?.e164 ?? '—'),
             ],
           ),
-          const SizedBox(height: 24),
-          _Row('Country', '${_number.isoCode} (${_number.dialCode})'),
-          _Row('Digits', _number.digits),
-          _Row('E.164', _number.e164 ?? '—'),
-          _Row('International', _number.format()),
-          _Row('Type', _number.type.name),
-          _Row('Saved', _saved?.e164 ?? '—'),
-        ],
+        ),
       ),
     );
   }

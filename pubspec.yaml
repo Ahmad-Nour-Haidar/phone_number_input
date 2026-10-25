@@ -1,7 +1,23 @@
 name: phone_number_input
-description: A simple and customizable flutter package for inputting phone number in intl / international format uses Google's libphonenumber.
-version: 0.7.5
-homepage: https://github.com/natintosh/intl-phone-number-input
+description: >-
+  A phone number form field with a country picker, as-you-type formatting and
+  libphonenumber validation, with Arabic digits, Arabic search and 22 languages.
+version: 1.0.0
+repository: https://github.com/Ahmad-Nour-Haidar/phone_number_input
+issue_tracker: https://github.com/Ahmad-Nour-Haidar/phone_number_input/issues
+topics:
+  - phone-number
+  - phone
+  - form
+  - validation
+  - arabic
+screenshots:
+  - description: A Saudi number formatted as it is typed, with its E.164 form, international format and type.
+    path: screenshots/formatted_number.png
+  - description: The searchable country list in a bottom sheet, with favorite countries first.
+    path: screenshots/country_list.png
+  - description: The country list in Arabic, in a dialog, laid out right to left.
+    path: screenshots/arabic_country_list.png
 
 environment:
   sdk: ^3.13.0
@@ -17,10 +33,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
   assets:
     - assets/flags/

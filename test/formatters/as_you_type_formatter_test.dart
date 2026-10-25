@@ -31,8 +31,8 @@ void main() {
         AsYouTypeFormatter.formatDigits(digits, country(isoCode));
 
     test('formats national numbers with or without the national prefix', () {
-      expect(format('944123456', 'SY'), '944 123 456');
-      expect(format('0944123456', 'SY'), '0944 123 456');
+      expect(format('599123456', 'PS'), '599 123 456');
+      expect(format('0599123456', 'PS'), '0599 123 456');
       expect(format('0501234567', 'SA'), '050 123 4567');
     });
 
@@ -50,8 +50,8 @@ void main() {
     });
 
     test('keeps digits that cannot be formatted', () {
-      expect(format('12', 'SY'), '12');
-      expect(format('', 'SY'), '');
+      expect(format('12', 'PS'), '12');
+      expect(format('', 'PS'), '');
     });
   });
 
@@ -69,8 +69,8 @@ void main() {
         followingFormatter.formatEditUpdate(value(''), value(text));
 
     expect(paste('2025550123').text, '(202) 555-0123');
-    selected = country('SY');
-    expect(paste('0944123456').text, '0944 123 456');
+    selected = country('PS');
+    expect(paste('0599123456').text, '0599 123 456');
   });
 
   test('keeps the cursor after a digit inserted in the middle', () {

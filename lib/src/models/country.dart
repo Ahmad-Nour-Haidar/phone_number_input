@@ -10,16 +10,16 @@ import 'package:flutter/foundation.dart' show immutable;
 /// All countries are listed in [Countries.all].
 @immutable
 final class Country {
-  /// The English name, e.g. `Syrian Arab Republic`.
+  /// The English name, e.g. `Palestine, State of`.
   final String name;
 
-  /// The ISO 3166-1 alpha-2 code, e.g. `SY`.
+  /// The ISO 3166-1 alpha-2 code, e.g. `PS`.
   final String alpha2Code;
 
-  /// The ISO 3166-1 alpha-3 code, e.g. `SYR`.
+  /// The ISO 3166-1 alpha-3 code, e.g. `PSE`.
   final String alpha3Code;
 
-  /// The dial code, e.g. `+963`.
+  /// The dial code, e.g. `+970`.
   ///
   /// Countries that share the calling code `+1` include their area code,
   /// e.g. `+1264` for Anguilla.
@@ -41,7 +41,7 @@ final class Country {
   /// The path of the flag image in this package's assets.
   String get flagAsset => 'assets/flags/${alpha2Code.toLowerCase()}.png';
 
-  /// The flag as an emoji, e.g. 🇸🇾.
+  /// The flag as an emoji, e.g. 🇵🇸.
   String get flagEmoji => String.fromCharCodes(
     alpha2Code.codeUnits.map((codeUnit) => codeUnit + _regionalIndicatorA),
   );

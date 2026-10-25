@@ -25,24 +25,24 @@ void main() {
 
     test('keeps other characters', () {
       expect(
-        ArabicToEnglishDigitsFormatter.convert('+٩٦٣ 9٤٤-abc'),
-        '+963 944-abc',
+        ArabicToEnglishDigitsFormatter.convert('+٩٧٠ 5٩٩-abc'),
+        '+970 599-abc',
       );
     });
 
     test('returns the same value when nothing changes', () {
-      const value = TextEditingValue(text: '+963 944');
+      const value = TextEditingValue(text: '+970 599');
       expect(identical(format(value), value), isTrue);
     });
 
     test('preserves selection and composing ranges', () {
       const value = TextEditingValue(
-        text: '٠٩٤٤',
+        text: '٠٥٩٩',
         selection: TextSelection(baseOffset: 1, extentOffset: 3),
         composing: TextRange(start: 0, end: 4),
       );
       final result = format(value);
-      expect(result.text, '0944');
+      expect(result.text, '0599');
       expect(result.selection, value.selection);
       expect(result.composing, value.composing);
     });

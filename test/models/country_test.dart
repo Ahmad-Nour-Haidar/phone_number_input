@@ -4,20 +4,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_number_input/phone_number_input.dart';
 
 void main() {
-  final syria = Countries.byIsoCode('SY')!;
+  final palestine = Countries.byIsoCode('PS')!;
 
   test('flagEmoji is made of regional indicator symbols', () {
-    expect(syria.flagEmoji, '🇸🇾');
+    expect(palestine.flagEmoji, '🇵🇸');
   });
 
   test('flagAsset points to the bundled image', () {
-    expect(syria.flagAsset, 'assets/flags/sy.png');
+    expect(palestine.flagAsset, 'assets/flags/ps.png');
   });
 
   group('localizedName', () {
     test('returns the translation of the language', () {
-      expect(syria.localizedName(const Locale('ar')), 'سوريا');
-      expect(syria.localizedName(const Locale('ar', 'SY')), 'سوريا');
+      expect(palestine.localizedName(const Locale('ar')), 'فلسطين');
+      expect(palestine.localizedName(const Locale('ar', 'PS')), 'فلسطين');
     });
 
     test('prefers a translation for the language and country', () {
@@ -30,58 +30,58 @@ void main() {
 
     test('prefers a translation for the language and script', () {
       expect(
-        syria.localizedName(
+        palestine.localizedName(
           const Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Cyrl'),
         ),
-        syria.nameTranslations['sr-Cyrl'],
+        palestine.nameTranslations['sr-Cyrl'],
       );
     });
 
     test('uses a regional translation for a language without its own', () {
       expect(
-        syria.localizedName(const Locale('pt')),
-        syria.nameTranslations['pt_BR'],
+        palestine.localizedName(const Locale('pt')),
+        palestine.nameTranslations['pt_BR'],
       );
     });
 
     test('uses the Traditional Chinese names where they are written', () {
-      final traditional = syria.nameTranslations['zh_TW'];
-      expect(syria.localizedName(const Locale('zh', 'HK')), traditional);
+      final traditional = palestine.nameTranslations['zh_TW'];
+      expect(palestine.localizedName(const Locale('zh', 'HK')), traditional);
       expect(
-        syria.localizedName(
+        palestine.localizedName(
           const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
         ),
         traditional,
       );
       expect(
-        syria.localizedName(const Locale('zh')),
-        syria.nameTranslations['zh'],
+        palestine.localizedName(const Locale('zh')),
+        palestine.nameTranslations['zh'],
       );
     });
 
     test('uses the Norwegian names for Bokmål and Nynorsk', () {
       expect(
-        syria.localizedName(const Locale('nb')),
-        syria.nameTranslations['no'],
+        palestine.localizedName(const Locale('nb')),
+        palestine.nameTranslations['no'],
       );
     });
 
     test('falls back to the English name', () {
-      expect(syria.localizedName(null), syria.name);
-      expect(syria.localizedName(const Locale('xx')), syria.name);
+      expect(palestine.localizedName(null), palestine.name);
+      expect(palestine.localizedName(const Locale('xx')), palestine.name);
     });
   });
 
   test('countries are equal by ISO code', () {
     expect(
-      syria,
+      palestine,
       const Country(
-        name: 'Syria',
-        alpha2Code: 'SY',
-        alpha3Code: 'SYR',
-        dialCode: '+963',
+        name: 'Palestine',
+        alpha2Code: 'PS',
+        alpha3Code: 'PSE',
+        dialCode: '+970',
       ),
     );
-    expect(syria, isNot(Countries.byIsoCode('LB')));
+    expect(palestine, isNot(Countries.byIsoCode('LB')));
   });
 }

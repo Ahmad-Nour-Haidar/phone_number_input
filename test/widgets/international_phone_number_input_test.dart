@@ -35,12 +35,12 @@ void main() {
     });
 
     testWidgets('starts with the device country', (tester) async {
-      tester.platformDispatcher.localeTestValue = const Locale('ar', 'SY');
+      tester.platformDispatcher.localeTestValue = const Locale('ar', 'PS');
       addTearDown(tester.platformDispatcher.clearLocaleTestValue);
 
       await tester.pumpWidget(app(const InternationalPhoneNumberInput()));
 
-      expect(find.textContaining('+963'), findsOneWidget);
+      expect(find.textContaining('+970'), findsOneWidget);
     });
 
     testWidgets('starts with the first favorite when the device country is '
@@ -48,7 +48,7 @@ void main() {
       await tester.pumpWidget(
         app(
           const InternationalPhoneNumberInput(
-            countries: ['SY', 'LB', 'JO'],
+            countries: ['PS', 'LB', 'JO'],
             favoriteCountries: ['JO'],
           ),
         ),
@@ -61,36 +61,36 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY', digits: '0944123456'),
+            initialValue: PhoneNumber(isoCode: 'PS', digits: '0599123456'),
           ),
         ),
       );
 
-      expect(find.textContaining('+963'), findsOneWidget);
-      expect(fieldText(tester), '0944 123 456');
+      expect(find.textContaining('+970'), findsOneWidget);
+      expect(fieldText(tester), '0599 123 456');
     });
 
     testWidgets('shows emoji flags or no flags', (tester) async {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             selectorConfig: const SelectorConfig(useEmoji: true),
           ),
         ),
       );
-      expect(find.text('🇸🇾'), findsOneWidget);
+      expect(find.text('🇵🇸'), findsOneWidget);
 
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             selectorConfig: const SelectorConfig(showFlags: false),
           ),
         ),
       );
       expect(find.byType(Image), findsNothing);
-      expect(find.text('🇸🇾'), findsNothing);
+      expect(find.text('🇵🇸'), findsNothing);
     });
 
     testWidgets('can show the selector inside the text field', (tester) async {
@@ -117,12 +117,12 @@ void main() {
           Form(
             key: formKey,
             child: InternationalPhoneNumberInput(
-              initialValue: PhoneNumber(isoCode: 'SY'),
+              initialValue: PhoneNumber(isoCode: 'PS'),
             ),
           ),
         ),
       );
-      final dialCode = find.textContaining('+963');
+      final dialCode = find.textContaining('+970');
       final before = tester.getCenter(dialCode).dy;
 
       formKey.currentState!.validate();
@@ -141,18 +141,18 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             onChanged: (number) => reported = number,
           ),
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       await tester.pump();
 
-      expect(fieldText(tester), '0944 123 456');
-      expect(reported?.e164, '+963944123456');
-      expect(reported?.digits, '0944123456');
+      expect(fieldText(tester), '0599 123 456');
+      expect(reported?.e164, '+970599123456');
+      expect(reported?.digits, '0599123456');
     });
 
     testWidgets('converts Arabic digits', (tester) async {
@@ -160,16 +160,16 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             onChanged: (number) => reported = number,
           ),
         ),
       );
 
-      await tester.enterText(field, '٠٩٤٤١٢٣٤٥٦');
+      await tester.enterText(field, '٠٥٩٩١٢٣٤٥٦');
       await tester.pump();
 
-      expect(fieldText(tester), '0944 123 456');
+      expect(fieldText(tester), '0599 123 456');
       expect(reported?.isValid, isTrue);
     });
 
@@ -180,7 +180,7 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             onChanged: (number) => reported = number,
           ),
         ),
@@ -201,7 +201,7 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
           ),
         ),
       );
@@ -217,35 +217,35 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             maxDigits: 10,
           ),
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       await tester.pump();
-      expect(fieldText(tester), '0944 123 456');
+      expect(fieldText(tester), '0599 123 456');
 
-      await tester.enterText(field, '09441234567');
+      await tester.enterText(field, '05991234567');
       await tester.pump();
-      expect(fieldText(tester), '0944 123 456');
+      expect(fieldText(tester), '0599 123 456');
     });
 
     testWidgets('shows only digits when formatting is off', (tester) async {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             formatInput: false,
           ),
         ),
       );
 
-      await tester.enterText(field, '0944-123 456');
+      await tester.enterText(field, '0599-123 456');
       await tester.pump();
 
-      expect(fieldText(tester), '0944123456');
+      expect(fieldText(tester), '0599123456');
     });
 
     testWidgets('uses the given controller', (tester) async {
@@ -254,16 +254,16 @@ void main() {
       await tester.pumpWidget(
         app(
           InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'SY'),
+            initialValue: PhoneNumber(isoCode: 'PS'),
             controller: controller,
           ),
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       await tester.pump();
 
-      expect(controller.text, '0944 123 456');
+      expect(controller.text, '0599 123 456');
     });
 
     testWidgets('is read-only when disabled', (tester) async {
@@ -320,13 +320,13 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('ابحث باسم الدولة أو رمز الاتصال'), findsOneWidget);
 
-      await tester.enterText(find.byKey(PhoneInputKeys.searchField), 'سوري');
+      await tester.enterText(find.byKey(PhoneInputKeys.searchField), 'فلسط');
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(PhoneInputKeys.countryItem('SY')));
+      await tester.tap(find.byKey(PhoneInputKeys.countryItem('PS')));
       await tester.pumpAndSettle();
 
       expect(find.byKey(PhoneInputKeys.searchField), findsNothing);
-      expect(find.textContaining('+963'), findsOneWidget);
+      expect(find.textContaining('+970'), findsOneWidget);
     });
 
     testWidgets('from the dialog', (tester) async {
@@ -342,13 +342,13 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(AlertDialog), findsOneWidget);
 
-      await tester.enterText(find.byKey(PhoneInputKeys.searchField), '963');
+      await tester.enterText(find.byKey(PhoneInputKeys.searchField), '970');
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(PhoneInputKeys.countryItem('SY')));
+      await tester.tap(find.byKey(PhoneInputKeys.countryItem('PS')));
       await tester.pumpAndSettle();
 
       expect(find.byType(AlertDialog), findsNothing);
-      expect(find.textContaining('+963'), findsOneWidget);
+      expect(find.textContaining('+970'), findsOneWidget);
     });
 
     testWidgets('lists favorites first, then countries by translated name', (
@@ -358,8 +358,8 @@ void main() {
         app(
           const InternationalPhoneNumberInput(
             locale: Locale('ar'),
-            countries: ['SY', 'LB', 'JO'],
-            favoriteCountries: ['SY'],
+            countries: ['PS', 'LB', 'JO'],
+            favoriteCountries: ['PS'],
             selectorConfig: SelectorConfig(
               type: PhoneInputSelectorType.bottomSheet,
             ),
@@ -373,7 +373,7 @@ void main() {
       final tiles = tester.widgetList<ListTile>(find.byType(ListTile));
       expect(
         [for (final tile in tiles) (tile.title! as Text).data],
-        ['سوريا', 'الأردن', 'لبنان'],
+        ['فلسطين', 'الأردن', 'لبنان'],
       );
     });
 
@@ -397,6 +397,37 @@ void main() {
 
       expect(find.byKey(PhoneInputKeys.searchField), findsNothing);
     });
+
+    testWidgets('limits the dropdown menu to a part of the screen height', (
+      tester,
+    ) async {
+      Future<double> openMenuHeight(SelectorConfig config) async {
+        await tester.pumpWidget(
+          app(InternationalPhoneNumberInput(selectorConfig: config)),
+        );
+        await tester.tap(find.byKey(PhoneInputKeys.selectorButton));
+        await tester.pumpAndSettle();
+        final height = tester.getSize(find.byType(Scrollable).last).height;
+        // Closes the menu.
+        await tester.tapAt(Offset.zero);
+        await tester.pumpAndSettle();
+        return height;
+      }
+
+      final screenHeight =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
+
+      expect(
+        await openMenuHeight(const SelectorConfig()),
+        lessThanOrEqualTo(screenHeight * 0.75),
+      );
+      expect(
+        await openMenuHeight(
+          const SelectorConfig(dropdownMaxHeightFactor: null),
+        ),
+        greaterThan(screenHeight * 0.75),
+      );
+    });
   });
 
   group('parent updates', () {
@@ -409,8 +440,8 @@ void main() {
               rebuildParent = setState;
               return InternationalPhoneNumberInput(
                 // A new instance on every build, as is common in app code.
-                initialValue: PhoneNumber(isoCode: 'SY'),
-                countries: const ['SY', 'LB'],
+                initialValue: PhoneNumber(isoCode: 'PS'),
+                countries: const ['PS', 'LB'],
               );
             },
           ),
@@ -425,13 +456,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.textContaining('+961'), findsOneWidget);
-      expect(find.textContaining('+963'), findsNothing);
+      expect(find.textContaining('+970'), findsNothing);
     });
 
     testWidgets('feeding onChanged back as initialValue keeps the text', (
       tester,
     ) async {
-      PhoneNumber number = PhoneNumber(isoCode: 'SY');
+      PhoneNumber number = PhoneNumber(isoCode: 'PS');
       await tester.pumpWidget(
         app(
           StatefulBuilder(
@@ -443,16 +474,16 @@ void main() {
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       await tester.pumpAndSettle();
 
-      expect(number.e164, '+963944123456');
-      expect(fieldText(tester), '0944 123 456');
+      expect(number.e164, '+970599123456');
+      expect(fieldText(tester), '0599 123 456');
     });
 
     testWidgets('a new initial value replaces the number', (tester) async {
       late StateSetter setParent;
-      PhoneNumber number = PhoneNumber(isoCode: 'SY');
+      PhoneNumber number = PhoneNumber(isoCode: 'PS');
       await tester.pumpWidget(
         app(
           StatefulBuilder(
@@ -469,6 +500,39 @@ void main() {
 
       expect(find.textContaining('+966'), findsOneWidget);
       expect(fieldText(tester), '50 123 4567');
+    });
+
+    testWidgets('a new initial value inside a form does not rebuild the form '
+        'during the build', (tester) async {
+      late StateSetter setParent;
+      PhoneNumber number = PhoneNumber(isoCode: 'PS', digits: '0599123456');
+      await tester.pumpWidget(
+        app(
+          StatefulBuilder(
+            builder: (context, setState) {
+              setParent = setState;
+              return Form(
+                child: InternationalPhoneNumberInput(
+                  initialValue: number,
+                  onChanged: (value) => setState(() => number = value),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      setParent(() => number = PhoneNumber.tryParse('+966501234567')!);
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.textContaining('+966'), findsOneWidget);
+      expect(fieldText(tester), '50 123 4567');
+
+      setParent(() => number = PhoneNumber(isoCode: 'PS'));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.textContaining('+970'), findsOneWidget);
+      expect(fieldText(tester), isEmpty);
     });
   });
 
@@ -487,7 +551,7 @@ void main() {
     ) async {
       final formKey = await pumpForm(
         tester,
-        InternationalPhoneNumberInput(initialValue: PhoneNumber(isoCode: 'SY')),
+        InternationalPhoneNumberInput(initialValue: PhoneNumber(isoCode: 'PS')),
       );
 
       expect(formKey.currentState!.validate(), isFalse);
@@ -499,7 +563,7 @@ void main() {
       await tester.pump();
       expect(find.text('Invalid phone number'), findsOneWidget);
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       expect(formKey.currentState!.validate(), isTrue);
     });
 
@@ -507,7 +571,7 @@ void main() {
       final formKey = await pumpForm(
         tester,
         InternationalPhoneNumberInput(
-          initialValue: PhoneNumber(isoCode: 'SY'),
+          initialValue: PhoneNumber(isoCode: 'PS'),
           allowEmpty: true,
         ),
       );
@@ -519,7 +583,7 @@ void main() {
       final formKey = await pumpForm(
         tester,
         InternationalPhoneNumberInput(
-          initialValue: PhoneNumber(isoCode: 'SY', digits: '123'),
+          initialValue: PhoneNumber(isoCode: 'PS', digits: '123'),
           locale: const Locale('ar'),
         ),
       );
@@ -535,7 +599,7 @@ void main() {
       final formKey = await pumpForm(
         tester,
         InternationalPhoneNumberInput(
-          initialValue: PhoneNumber(isoCode: 'SY'),
+          initialValue: PhoneNumber(isoCode: 'PS'),
           validator: (number) {
             validated = number;
             return number.type == PhoneNumberType.mobile ? null : 'Mobile only';
@@ -543,9 +607,9 @@ void main() {
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       expect(formKey.currentState!.validate(), isTrue);
-      expect(validated?.e164, '+963944123456');
+      expect(validated?.e164, '+970599123456');
     });
 
     testWidgets('onSaved reports the same number as onChanged', (tester) async {
@@ -554,16 +618,16 @@ void main() {
       final formKey = await pumpForm(
         tester,
         InternationalPhoneNumberInput(
-          initialValue: PhoneNumber(isoCode: 'SY'),
+          initialValue: PhoneNumber(isoCode: 'PS'),
           onChanged: (number) => changed = number,
           onSaved: (number) => saved = number,
         ),
       );
 
-      await tester.enterText(field, '0944123456');
+      await tester.enterText(field, '0599123456');
       formKey.currentState!.save();
 
-      expect(changed?.e164, '+963944123456');
+      expect(changed?.e164, '+970599123456');
       expect(saved, changed);
     });
 
@@ -573,7 +637,7 @@ void main() {
       await pumpForm(
         tester,
         InternationalPhoneNumberInput(
-          initialValue: PhoneNumber(isoCode: 'SY'),
+          initialValue: PhoneNumber(isoCode: 'PS'),
           autovalidateMode: AutovalidateMode.always,
         ),
       );

@@ -15,8 +15,8 @@ void main() {
   });
 
   test('ranks exact ISO codes first', () {
-    expect(search('sy').first, 'SY');
-    expect(search('SYR').first, 'SY');
+    expect(search('ps').first, 'PS');
+    expect(search('PSE').first, 'PS');
   });
 
   test('ranks names that start with the query before other matches', () {
@@ -27,10 +27,11 @@ void main() {
   });
 
   test('matches dial codes with or without + and in Arabic digits', () {
-    expect(search('963').first, 'SY');
-    expect(search('+963').first, 'SY');
-    expect(search('٩٦٣').first, 'SY');
-    expect(search('+96'), containsAll(['SY', 'SA', 'JO', 'LB']));
+    expect(search('970').first, 'PS');
+    expect(search('+970').first, 'PS');
+    expect(search('٩٧٠').first, 'PS');
+    expect(search('+96'), containsAll(['SA', 'JO', 'LB']));
+    expect(search('+96'), isNot(contains('PS')));
     expect(search('+96'), isNot(contains('AE')));
   });
 
@@ -42,12 +43,12 @@ void main() {
     const arabic = Locale('ar');
 
     test('matches the translated names', () {
-      expect(search('سوريا', locale: arabic).first, 'SY');
+      expect(search('فلسطين', locale: arabic).first, 'PS');
     });
 
     test('ignores letter variants and diacritics', () {
       expect(search('السعوديه', locale: arabic), contains('SA'));
-      expect(search('سُورِيَا', locale: arabic).first, 'SY');
+      expect(search('فِلَسْطِين', locale: arabic).first, 'PS');
     });
 
     test('matches words without the article ال', () {

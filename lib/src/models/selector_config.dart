@@ -90,6 +90,13 @@ final class SelectorConfig {
   /// [showModalBottomSheet]. Defaults to false.
   final bool useSafeArea;
 
+  /// The maximum height of the dropdown menu, as a fraction of the screen
+  /// height. Defaults to 0.75.
+  ///
+  /// When null, the menu can be as tall as the screen, see
+  /// [DropdownButton.menuMaxHeight].
+  final double? dropdownMaxHeightFactor;
+
   /// Creates a selector configuration. Every option has a default.
   const SelectorConfig({
     this.type = PhoneInputSelectorType.dropdown,
@@ -105,5 +112,10 @@ final class SelectorConfig {
     this.autofocusSearch = false,
     this.isScrollControlled = true,
     this.useSafeArea = false,
-  });
+    this.dropdownMaxHeightFactor = 0.75,
+  }) : assert(
+         dropdownMaxHeightFactor == null ||
+             (dropdownMaxHeightFactor > 0 && dropdownMaxHeightFactor <= 1),
+         'dropdownMaxHeightFactor must be greater than 0 and at most 1.',
+       );
 }

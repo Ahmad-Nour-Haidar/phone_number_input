@@ -60,10 +60,14 @@ final class CountrySelectorButton extends StatelessWidget {
       if (countries.length < 2) {
         return _label(country);
       }
+      final heightFactor = config.dropdownMaxHeightFactor;
       return DropdownButtonHideUnderline(
         child: DropdownButton<Country>(
           key: PhoneInputKeys.selectorButton,
           value: country,
+          menuMaxHeight: heightFactor == null
+              ? null
+              : MediaQuery.sizeOf(context).height * heightFactor,
           items: [
             for (final country in countries)
               DropdownMenuItem(

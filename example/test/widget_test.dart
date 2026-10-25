@@ -8,11 +8,12 @@ void main() {
   ) async {
     await tester.pumpWidget(const ExampleApp());
 
-    await tester.enterText(find.byKey(PhoneInputKeys.textField), '٠٩٤٤١٢٣٤٥٦');
+    // The example starts with Palestine.
+    await tester.enterText(find.byKey(PhoneInputKeys.textField), '٠٥٩٩١٢٣٤٥٦');
     await tester.pumpAndSettle();
 
-    expect(find.text('0944 123 456'), findsOneWidget);
-    expect(find.text('+963944123456'), findsOneWidget);
+    expect(find.text('0599 123 456'), findsOneWidget);
+    expect(find.text('+970599123456'), findsOneWidget);
     expect(find.text('mobile'), findsOneWidget);
   });
 

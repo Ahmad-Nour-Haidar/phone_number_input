@@ -46,47 +46,47 @@ enum PhoneNumberType {
 
 /// How [PhoneNumber.format] writes a number.
 enum PhoneNumberFormat {
-  /// `+963944123456`, the format to store and send.
+  /// `+970599123456`, the format to store and send.
   e164,
 
-  /// `+963 944 123 456`.
+  /// `+970 599 123 456`.
   international,
 
-  /// `0944 123 456`, as dialled inside the country.
+  /// `0599 123 456`, as dialled inside the country.
   national,
 }
 
 /// A phone number: a country and the digits typed after its dial code.
 ///
 /// ```dart
-/// final number = PhoneNumber(isoCode: 'SY', digits: '0944123456');
+/// final number = PhoneNumber(isoCode: 'PS', digits: '0599123456');
 /// number.isValid; // true
-/// number.e164; // +963944123456
-/// number.format(PhoneNumberFormat.national); // 0944 123 456
+/// number.e164; // +970599123456
+/// number.format(PhoneNumberFormat.national); // 0599 123 456
 ///
 /// PhoneNumber.tryParse('+966 50 123 4567')?.isoCode; // SA
 /// ```
 @immutable
 final class PhoneNumber {
-  /// The ISO 3166-1 alpha-2 code of the country, e.g. `SY`.
+  /// The ISO 3166-1 alpha-2 code of the country, e.g. `PS`.
   final String isoCode;
 
-  /// The dial code of the country, e.g. `+963`.
+  /// The dial code of the country, e.g. `+970`.
   final String dialCode;
 
-  /// The digits after the dial code, without formatting, e.g. `0944123456`.
+  /// The digits after the dial code, without formatting, e.g. `0599123456`.
   ///
   /// These are the digits as typed, so they may include the national prefix.
   final String digits;
 
-  /// The number in E.164 format, e.g. `+963944123456`, or null when it is
+  /// The number in E.164 format, e.g. `+970599123456`, or null when it is
   /// not valid.
   final String? e164;
 
   /// Creates the number [digits] of the country [isoCode].
   ///
   /// [digits] are the digits after the dial code, with or without the
-  /// national prefix, e.g. `944123456` or `0944123456` for Syria. Arabic and
+  /// national prefix, e.g. `599123456` or `0599123456` for Palestine. Arabic and
   /// Persian digits are converted, and other characters are ignored.
   ///
   /// Throws an [ArgumentError] when [isoCode] is not a known country.

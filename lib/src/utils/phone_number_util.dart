@@ -8,11 +8,11 @@ import '../models/phone_number.dart';
 abstract final class PhoneNumberUtil {
   static final p.PhoneNumberUtil _util = p.PhoneNumberUtil.instance;
 
-  /// Returns the number in E.164 format, e.g. `+963944123456`, when [digits]
+  /// Returns the number in E.164 format, e.g. `+970599123456`, when [digits]
   /// typed after [dialCode] form a valid number for [isoCode], otherwise
   /// null.
   ///
-  /// [digits] may include the national prefix (`0944…` in Syria). Digits that
+  /// [digits] may include the national prefix (`0599…` in Palestine). Digits that
   /// already repeat the area code of [dialCode] (`264…` for `+1264`) are
   /// accepted too.
   static String? toE164({

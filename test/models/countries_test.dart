@@ -36,7 +36,7 @@ void main() {
 
   group('byIsoCode', () {
     test('matches case-insensitively', () {
-      expect(Countries.byIsoCode('sy')?.dialCode, '+963');
+      expect(Countries.byIsoCode('ps')?.dialCode, '+970');
     });
 
     test('returns null for unknown codes', () {
@@ -56,8 +56,8 @@ void main() {
     });
 
     test('accepts dial codes with or without +', () {
-      expect(isoCodeOf('963'), 'SY');
-      expect(isoCodeOf('+963'), 'SY');
+      expect(isoCodeOf('970'), 'PS');
+      expect(isoCodeOf('+970'), 'PS');
     });
 
     test('finds dial codes that include an area code', () {
@@ -86,8 +86,8 @@ void main() {
 
     test('keeps the order of all, matches case-insensitively and ignores '
         'unknown codes', () {
-      final countries = Countries.filter(const ['sy', 'XX', 'LB']);
-      expect(countries.map((country) => country.alpha2Code), ['LB', 'SY']);
+      final countries = Countries.filter(const ['ps', 'XX', 'LB']);
+      expect(countries.map((country) => country.alpha2Code), ['LB', 'PS']);
     });
   });
 }

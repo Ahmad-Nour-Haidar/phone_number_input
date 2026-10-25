@@ -31,7 +31,7 @@ void main() {
 
     test('are chosen by language, ignoring the country', () {
       expect(of(const Locale('ar')).hint, 'رقم الهاتف');
-      expect(of(const Locale('ar', 'SY')).hint, 'رقم الهاتف');
+      expect(of(const Locale('ar', 'PS')).hint, 'رقم الهاتف');
       expect(of(const Locale('tr')).hint, 'Telefon numarası');
     });
 

@@ -22,8 +22,8 @@ import 'phone_input_keys.dart';
 ///
 /// ```dart
 /// InternationalPhoneNumberInput(
-///   initialValue: PhoneNumber(isoCode: 'SY'),
-///   onChanged: (number) => print(number.e164), // +963944123456, or null
+///   initialValue: PhoneNumber(isoCode: 'PS'),
+///   onChanged: (number) => print(number.e164), // +970599123456, or null
 ///   selectorConfig: const SelectorConfig(
 ///     type: PhoneInputSelectorType.bottomSheet,
 ///   ),
@@ -113,7 +113,7 @@ final class InternationalPhoneNumberInput extends StatefulWidget {
   /// See [TextField.scrollPadding].
   final EdgeInsets scrollPadding;
 
-  /// Whether the number is formatted as it is typed, e.g. `0944 123 456`.
+  /// Whether the number is formatted as it is typed, e.g. `0599 123 456`.
   /// When false, only digits are shown. Defaults to true.
   final bool formatInput;
 
@@ -131,7 +131,7 @@ final class InternationalPhoneNumberInput extends StatefulWidget {
   /// limit and the formatting, so they receive the text as typed.
   final List<TextInputFormatter>? inputFormatters;
 
-  /// The ISO codes of the countries to choose from, e.g. `['SY', 'LB']`.
+  /// The ISO codes of the countries to choose from, e.g. `['PS', 'LB']`.
   /// All countries are available when this is null.
   final List<String>? countries;
 
@@ -257,9 +257,18 @@ final class _InternationalPhoneNumberInputState
       _ordered = null;
     }
 
-    if (widget.initialValue != oldWidget.initialValue &&
-        widget.initialValue != _lastReported) {
-      _show(widget.initialValue);
+    final initialValue = widget.initialValue;
+    if (initialValue != null &&
+        initialValue != oldWidget.initialValue &&
+        initialValue != _lastReported) {
+      _showCountry(initialValue);
+      // Changing the text notifies the Form, which cannot rebuild while it
+      // is being built, so the text is changed after this frame.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && widget.initialValue == initialValue) {
+          _setDigits(initialValue.digits);
+        }
+      });
     }
   }
 
@@ -297,15 +306,23 @@ final class _InternationalPhoneNumberInputState
   }
 
   /// Shows [number] in the field, without reporting it.
+  ///
+  /// Only for [initState]: later, changing the text must wait until the
+  /// build is done, see [didUpdateWidget].
   void _show(PhoneNumber? number) {
     if (number == null) {
       return;
     }
+    _showCountry(number);
+    _setDigits(number.digits);
+  }
+
+  /// Selects the country of [number] when it is available.
+  void _showCountry(PhoneNumber number) {
     final country = number.country;
     if (_available.contains(country)) {
       _country = country;
     }
-    _setDigits(number.digits);
   }
 
   void _setDigits(String digits) {

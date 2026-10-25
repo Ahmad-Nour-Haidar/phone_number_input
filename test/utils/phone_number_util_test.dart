@@ -12,8 +12,8 @@ void main() {
         );
 
     test('accepts digits with or without the national prefix', () {
-      expect(toE164('SY', '+963', '944123456'), '+963944123456');
-      expect(toE164('SY', '+963', '0944123456'), '+963944123456');
+      expect(toE164('PS', '+970', '599123456'), '+970599123456');
+      expect(toE164('PS', '+970', '0599123456'), '+970599123456');
     });
 
     test('accepts digits with or without the area code of the dial code', () {
@@ -36,7 +36,7 @@ void main() {
 
   test('regionForCallingCode returns the main region', () {
     expect(PhoneNumberUtil.regionForCallingCode(1), 'US');
-    expect(PhoneNumberUtil.regionForCallingCode(963), 'SY');
+    expect(PhoneNumberUtil.regionForCallingCode(970), 'PS');
     expect(PhoneNumberUtil.regionForCallingCode(999), 'ZZ');
   });
 
@@ -58,10 +58,10 @@ void main() {
   });
 
   test('formatAsYouType formats national and international input', () {
-    expect(PhoneNumberUtil.formatAsYouType('0944123456', 'SY'), '0944 123 456');
+    expect(PhoneNumberUtil.formatAsYouType('0599123456', 'PS'), '0599 123 456');
     expect(
-      PhoneNumberUtil.formatAsYouType('+963944123456', 'SY'),
-      '+963 944 123 456',
+      PhoneNumberUtil.formatAsYouType('+970599123456', 'PS'),
+      '+970 599 123 456',
     );
   });
 }

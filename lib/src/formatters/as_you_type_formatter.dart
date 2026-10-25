@@ -5,7 +5,7 @@ import '../models/country.dart';
 import '../utils/phone_number_util.dart';
 
 /// Formats the digits after the dial code as they are typed, e.g.
-/// `0944 123 456` in Syria or `(202) 555-0123` in the United States.
+/// `0599 123 456` in Palestine or `(202) 555-0123` in the United States.
 final class AsYouTypeFormatter extends TextInputFormatter {
   /// Creates a formatter for the country that [country] returns, which is
   /// read on every edit so a country change applies immediately.
@@ -24,7 +24,7 @@ final class AsYouTypeFormatter extends TextInputFormatter {
       return digits;
     }
     // National formatting handles numbers typed with the national prefix,
-    // e.g. 0944 123 456, and the US style (202) 555-0123.
+    // e.g. 0599 123 456, and the US style (202) 555-0123.
     final national = PhoneNumberUtil.formatAsYouType(
       digits,
       country.alpha2Code,

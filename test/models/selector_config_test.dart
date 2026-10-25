@@ -18,5 +18,22 @@ void main() {
     expect(config.autofocusSearch, isFalse);
     expect(config.isScrollControlled, isTrue);
     expect(config.useSafeArea, isFalse);
+    expect(config.dropdownMaxHeightFactor, 0.75);
+  });
+
+  test('rejects dropdown height factors outside (0, 1]', () {
+    expect(
+      () => SelectorConfig(dropdownMaxHeightFactor: 0),
+      throwsAssertionError,
+    );
+    expect(
+      () => SelectorConfig(dropdownMaxHeightFactor: 1.5),
+      throwsAssertionError,
+    );
+    expect(
+      const SelectorConfig(dropdownMaxHeightFactor: null)
+          .dropdownMaxHeightFactor,
+      isNull,
+    );
   });
 }

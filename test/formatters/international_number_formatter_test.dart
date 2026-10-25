@@ -9,9 +9,9 @@ void main() {
   late Set<String> allowed;
 
   setUp(() {
-    selected = Countries.byIsoCode('SY')!;
+    selected = Countries.byIsoCode('PS')!;
     detected = [];
-    allowed = {'SY', 'SA', 'CA', 'US'};
+    allowed = {'PS', 'SA', 'CA', 'US'};
   });
 
   TextEditingValue format(String text) {
@@ -66,7 +66,7 @@ void main() {
   });
 
   test('leaves national numbers', () {
-    expect(format('0944123456').text, '0944123456');
+    expect(format('0599123456').text, '0599123456');
     expect(detected, isEmpty);
   });
 }

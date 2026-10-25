@@ -4,21 +4,21 @@ import 'package:phone_number_input/phone_number_input.dart';
 void main() {
   group('PhoneNumber()', () {
     test('keeps only the digits, converting Arabic digits', () {
-      final number = PhoneNumber(isoCode: 'sy', digits: '٠٩٤٤ ١٢٣-٤٥٦');
+      final number = PhoneNumber(isoCode: 'ps', digits: '٠٥٩٩ ١٢٣-٤٥٦');
 
-      expect(number.isoCode, 'SY');
-      expect(number.dialCode, '+963');
-      expect(number.digits, '0944123456');
+      expect(number.isoCode, 'PS');
+      expect(number.dialCode, '+970');
+      expect(number.digits, '0599123456');
     });
 
     test('validates numbers with or without the national prefix', () {
       expect(
-        PhoneNumber(isoCode: 'SY', digits: '0944123456').e164,
-        '+963944123456',
+        PhoneNumber(isoCode: 'PS', digits: '0599123456').e164,
+        '+970599123456',
       );
       expect(
-        PhoneNumber(isoCode: 'SY', digits: '944123456').e164,
-        '+963944123456',
+        PhoneNumber(isoCode: 'PS', digits: '599123456').e164,
+        '+970599123456',
       );
     });
 
@@ -30,7 +30,7 @@ void main() {
     });
 
     test('has no E.164 form when invalid', () {
-      final number = PhoneNumber(isoCode: 'SY', digits: '123');
+      final number = PhoneNumber(isoCode: 'PS', digits: '123');
 
       expect(number.isValid, isFalse);
       expect(number.e164, isNull);
@@ -38,7 +38,7 @@ void main() {
     });
 
     test('is empty without digits', () {
-      final number = PhoneNumber(isoCode: 'SY');
+      final number = PhoneNumber(isoCode: 'PS');
 
       expect(number.isEmpty, isTrue);
       expect(number.isValid, isFalse);
@@ -104,29 +104,29 @@ void main() {
     });
 
     test('parses national numbers of the given country', () {
-      expect(parse('0944123456', isoCode: 'SY')?.e164, '+963944123456');
+      expect(parse('0599123456', isoCode: 'PS')?.e164, '+970599123456');
     });
 
     test('returns null when the country is unknown', () {
       expect(parse('+999123'), isNull);
-      expect(parse('0944123456'), isNull);
+      expect(parse('0599123456'), isNull);
       expect(parse(''), isNull);
     });
   });
 
   group('format', () {
-    final number = PhoneNumber(isoCode: 'SY', digits: '0944123456');
+    final number = PhoneNumber(isoCode: 'PS', digits: '0599123456');
 
     test('writes valid numbers in every format', () {
-      expect(number.format(), '+963 944 123 456');
-      expect(number.format(PhoneNumberFormat.national), '0944 123 456');
-      expect(number.format(PhoneNumberFormat.e164), '+963944123456');
+      expect(number.format(), '+970 599 123 456');
+      expect(number.format(PhoneNumberFormat.national), '0599 123 456');
+      expect(number.format(PhoneNumberFormat.e164), '+970599123456');
     });
 
     test('returns invalid numbers as typed', () {
-      final invalid = PhoneNumber(isoCode: 'SY', digits: '123');
+      final invalid = PhoneNumber(isoCode: 'PS', digits: '123');
 
-      expect(invalid.format(), '+963123');
+      expect(invalid.format(), '+970123');
       expect(invalid.format(PhoneNumberFormat.national), '123');
     });
   });
@@ -143,19 +143,19 @@ void main() {
   });
 
   test('numbers are equal by country and digits', () {
-    final number = PhoneNumber(isoCode: 'SY', digits: '0944123456');
+    final number = PhoneNumber(isoCode: 'PS', digits: '0599123456');
 
-    expect(number, PhoneNumber(isoCode: 'SY', digits: '0944 123 456'));
+    expect(number, PhoneNumber(isoCode: 'PS', digits: '0599 123 456'));
     expect(
       number.hashCode,
-      PhoneNumber(isoCode: 'SY', digits: '0944123456').hashCode,
+      PhoneNumber(isoCode: 'PS', digits: '0599123456').hashCode,
     );
-    expect(number, isNot(PhoneNumber(isoCode: 'SY', digits: '944123456')));
-    expect(number, isNot(PhoneNumber(isoCode: 'LB', digits: '0944123456')));
+    expect(number, isNot(PhoneNumber(isoCode: 'PS', digits: '599123456')));
+    expect(number, isNot(PhoneNumber(isoCode: 'LB', digits: '0599123456')));
   });
 
   test('copyWith replaces the country or the digits', () {
-    final number = PhoneNumber(isoCode: 'SY', digits: '0944123456');
+    final number = PhoneNumber(isoCode: 'PS', digits: '0599123456');
 
     expect(number.copyWith(isoCode: 'LB').isoCode, 'LB');
     expect(number.copyWith(digits: '1').digits, '1');
@@ -163,8 +163,8 @@ void main() {
 
   test('toString shows the country, digits and validity', () {
     expect(
-      PhoneNumber(isoCode: 'SY', digits: '0944123456').toString(),
-      'PhoneNumber(SY, +963 0944123456, valid: +963944123456)',
+      PhoneNumber(isoCode: 'PS', digits: '0599123456').toString(),
+      'PhoneNumber(PS, +970 0599123456, valid: +970599123456)',
     );
   });
 }
