@@ -1,4 +1,4 @@
-# phone_number_input example
+# smart_phone_input example
 
 A form with an `InternationalPhoneNumberInput` that shows the reported
 `PhoneNumber` live: its country, digits, E.164 form, international format and

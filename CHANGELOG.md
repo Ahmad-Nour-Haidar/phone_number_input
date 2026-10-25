@@ -2,7 +2,7 @@
 
 ## 1.0.0
 
-First release of `phone_number_input`.
+First release of `smart_phone_input`.
 
 It started as a fork of [intl_phone_number_input](https://pub.dev/packages/intl_phone_number_input)
 0.7.5 and was rewritten with a new API, so it is not a drop-in replacement.

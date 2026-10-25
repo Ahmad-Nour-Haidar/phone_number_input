@@ -1,4 +1,4 @@
-# phone_number_input
+# smart_phone_input
 
 A phone number form field for Flutter with a country selector, formatting as
 you type and validation by [libphonenumber](https://pub.dev/packages/dlibphonenumber),
@@ -50,11 +50,11 @@ The screenshots come from the [example app](example/lib/main.dart).
 ## Installation
 
 ```sh
-flutter pub add phone_number_input
+flutter pub add smart_phone_input
 ```
 
 ```dart
-import 'package:phone_number_input/phone_number_input.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
 ```
 
 ## Usage
@@ -292,7 +292,7 @@ This package started as a fork of
 [intl_phone_number_input](https://pub.dev/packages/intl_phone_number_input)
 and has a new API:
 
-| intl_phone_number_input | phone_number_input |
+| intl_phone_number_input | smart_phone_input |
 |---|---|
 | `onInputChanged` | `onChanged` |
 | `onInputValidated` | `number.isValid` in `onChanged` |

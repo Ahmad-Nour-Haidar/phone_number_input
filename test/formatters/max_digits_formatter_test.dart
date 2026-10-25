@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_number_input/src/formatters/max_digits_formatter.dart';
+import 'package:smart_phone_input/src/formatters/max_digits_formatter.dart';
 
 void main() {
   const formatter = MaxDigitsFormatter(4);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_number_input/phone_number_input.dart';
-import 'package:phone_number_input/src/widgets/country_flag.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
+import 'package:smart_phone_input/src/widgets/country_flag.dart';
 
 void main() {
   final palestine = Countries.byIsoCode('PS')!;
@@ -17,7 +17,7 @@ void main() {
 
     // Fails when the package name in CountryFlag does not match pubspec.yaml,
     // which would otherwise hide every flag without an error.
-    expect(key.name, 'packages/phone_number_input/${palestine.flagAsset}');
+    expect(key.name, 'packages/smart_phone_input/${palestine.flagAsset}');
     expect(await rootBundle.load(key.name), isNotNull);
   });
 

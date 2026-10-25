@@ -1,5 +1,5 @@
-name: phone_number_input_example
-description: Example app for the phone_number_input package.
+name: smart_phone_input_example
+description: Example app for the smart_phone_input package.
 publish_to: none
 
 environment:
@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  phone_number_input:
+  smart_phone_input:
     path: ../
 
 dev_dependencies:

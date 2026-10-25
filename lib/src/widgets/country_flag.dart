@@ -5,7 +5,7 @@ import '../models/country.dart';
 /// Shows the flag of [country], either as an emoji or as the image bundled
 /// with this package.
 final class CountryFlag extends StatelessWidget {
-  static const String _package = 'phone_number_input';
+  static const String _package = 'smart_phone_input';
 
   /// The country whose flag is shown.
   final Country country;

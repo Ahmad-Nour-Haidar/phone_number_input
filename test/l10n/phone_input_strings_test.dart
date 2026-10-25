@@ -1,7 +1,7 @@
 import 'dart:ui' show Locale;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_number_input/phone_number_input.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
 
 void main() {
   PhoneInputStrings of(Locale? locale) => PhoneInputStrings.of(locale);

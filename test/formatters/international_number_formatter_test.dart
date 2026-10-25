@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_number_input/phone_number_input.dart';
-import 'package:phone_number_input/src/formatters/international_number_formatter.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
+import 'package:smart_phone_input/src/formatters/international_number_formatter.dart';
 
 void main() {
   late Country selected;

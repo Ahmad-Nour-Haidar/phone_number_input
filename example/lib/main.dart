@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phone_number_input/phone_number_input.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
 
 void main() => runApp(const ExampleApp());
 
@@ -18,7 +18,7 @@ final class _ExampleAppState extends State<ExampleApp> {
     final locale = _arabic ? const Locale('ar') : const Locale('en');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'phone_number_input',
+      title: 'smart_phone_input',
       locale: locale,
       theme: ThemeData(colorSchemeSeed: Colors.teal),
       builder: (context, child) => Directionality(

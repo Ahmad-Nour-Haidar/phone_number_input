@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_number_input/phone_number_input.dart';
-import 'package:phone_number_input_example/main.dart';
+import 'package:smart_phone_input/smart_phone_input.dart';
+import 'package:smart_phone_input_example/main.dart';
 
 void main() {
   testWidgets('typing Arabic digits gives a formatted, valid number', (

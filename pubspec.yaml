@@ -1,4 +1,4 @@
-name: phone_number_input
+name: smart_phone_input
 description: >-
   A phone number form field with a country picker, as-you-type formatting and
   libphonenumber validation, with Arabic digits, Arabic search and 22 languages.

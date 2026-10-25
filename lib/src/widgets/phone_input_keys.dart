@@ -12,15 +12,15 @@ import 'package:flutter/widgets.dart';
 /// ```
 abstract final class PhoneInputKeys {
   /// The phone number text field.
-  static const Key textField = Key('phone_number_input_text_field');
+  static const Key textField = Key('smart_phone_input_text_field');
 
   /// The button that shows the selected country and opens the selector.
-  static const Key selectorButton = Key('phone_number_input_selector_button');
+  static const Key selectorButton = Key('smart_phone_input_selector_button');
 
   /// The search field of the bottom sheet and dialog selectors.
-  static const Key searchField = Key('phone_number_input_search_field');
+  static const Key searchField = Key('smart_phone_input_search_field');
 
   /// The item of the country [isoCode] in the selector, e.g. `PS`.
   static Key countryItem(String isoCode) =>
-      Key('phone_number_input_country_${isoCode.toUpperCase()}');
+      Key('smart_phone_input_country_${isoCode.toUpperCase()}');
 }
