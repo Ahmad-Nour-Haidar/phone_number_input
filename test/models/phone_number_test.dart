@@ -73,6 +73,24 @@ void main() {
       expect(number.digits, '2351234');
     });
 
+    test('detects Sint Maarten and Western Sahara', () {
+      final sintMaarten = parse('+17215205678')!;
+      expect(sintMaarten.isoCode, 'SX');
+      expect(sintMaarten.digits, '5205678');
+      expect(sintMaarten.isValid, isTrue);
+
+      // libphonenumber lists Morocco first for numbers valid in both.
+      expect(parse('+212528812345')?.isoCode, 'MA');
+      final westernSahara = parse('+212528812345', isoCode: 'EH')!;
+      expect(westernSahara.isoCode, 'EH');
+      expect(westernSahara.isValid, isTrue);
+    });
+
+    test('keeps a preferred country only when the number is valid there', () {
+      expect(parse('+16135550123', isoCode: 'US')?.isoCode, 'CA');
+      expect(parse('+12015550123', isoCode: 'CA')?.isoCode, 'US');
+    });
+
     test('keeps a preferred country that shares the dial code', () {
       expect(parse('+1', isoCode: 'CA')?.isoCode, 'CA');
       expect(parse('+1')?.isoCode, 'US');

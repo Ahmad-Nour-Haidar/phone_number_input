@@ -62,6 +62,13 @@ void main() {
 
     test('finds dial codes that include an area code', () {
       expect(isoCodeOf('+1264'), 'AI');
+      expect(isoCodeOf('+1721'), 'SX');
+    });
+
+    test('returns the main country of a calling code shared with a '
+        'territory', () {
+      expect(isoCodeOf('+212'), 'MA');
+      expect(Countries.byIsoCode('EH')?.dialCode, '+212');
     });
 
     test('returns null for unknown or non-geographic codes', () {

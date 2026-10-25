@@ -122,9 +122,11 @@ final class PhoneNumber {
   /// Parses [text] as an international number, such as `+966501234567` or
   /// `00966501234567`, or as a national number of [isoCode].
   ///
-  /// An international number whose country is unclear, such as an
-  /// incomplete `+1…`, keeps [isoCode] when they share the dial code, and
-  /// otherwise gets the main country of its calling code.
+  /// An international number keeps the country [isoCode] when it is valid
+  /// there, as `+212528812345` is in both Morocco and Western Sahara, or
+  /// when its country is unclear, such as an incomplete `+1…`, and they
+  /// share the dial code. Otherwise it gets the country libphonenumber
+  /// detects, or the main country of its calling code.
   ///
   /// Returns null when the country cannot be determined. An international
   /// number whose calling code is known but whose digits are not valid is
@@ -145,11 +147,21 @@ final class PhoneNumber {
     }
 
     final digits = _digitsOf(international);
+    // The preferred country, when the number starts with its dial code.
+    final sameDialCode =
+        preferred != null && digits.startsWith(preferred.dialCode.substring(1))
+        ? preferred
+        : null;
     final country =
-        Countries.byIsoCode(PhoneNumberUtil.regionOfNumber('+$digits') ?? '') ??
-        (preferred != null && digits.startsWith(preferred.dialCode.substring(1))
-            ? preferred
+        (sameDialCode != null &&
+                PhoneNumberUtil.isValidForRegion(
+                  '+$digits',
+                  sameDialCode.alpha2Code,
+                )
+            ? sameDialCode
             : null) ??
+        Countries.byIsoCode(PhoneNumberUtil.regionOfNumber('+$digits') ?? '') ??
+        sameDialCode ??
         _countryOfCallingCode(digits);
     if (country == null) {
       return null;

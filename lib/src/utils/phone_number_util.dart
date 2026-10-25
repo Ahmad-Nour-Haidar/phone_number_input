@@ -34,8 +34,20 @@ abstract final class PhoneNumberUtil {
         : null;
   }
 
+  /// Whether the international number [text] is valid in [isoCode].
+  ///
+  /// Some numbers are valid in several regions, e.g. `+212528812345` in
+  /// both Morocco and Western Sahara.
+  static bool isValidForRegion(String text, String isoCode) {
+    final number = _parse(text, 'ZZ');
+    return number != null && _util.isValidNumberForRegion(number, isoCode);
+  }
+
   /// Returns the region of the valid international number [text], e.g.
   /// `SA` for `+966501234567`, or null.
+  ///
+  /// A number valid in several regions returns the first one libphonenumber
+  /// lists, e.g. Morocco rather than Western Sahara.
   static String? regionOfNumber(String text) {
     final number = _parse(text, 'ZZ');
     return number != null && _util.isValidNumber(number)
