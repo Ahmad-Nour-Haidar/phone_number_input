@@ -3,8 +3,8 @@ description: >-
   A phone number form field with a country picker, as-you-type formatting and
   libphonenumber validation, with Arabic digits, Arabic search and 22 languages.
 version: 1.0.0
-repository: https://github.com/Ahmad-Nour-Haidar/phone_number_input
-issue_tracker: https://github.com/Ahmad-Nour-Haidar/phone_number_input/issues
+repository: https://github.com/Ahmad-Nour-Haidar/smart_phone_input
+issue_tracker: https://github.com/Ahmad-Nour-Haidar/smart_phone_input/issues
 topics:
   - phone-number
   - phone
